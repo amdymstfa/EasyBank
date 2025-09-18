@@ -1,40 +1,38 @@
 package com.easybank.model;
 
+import java.math.BigDecimal;
+
 public class CompteCourant extends Compte {
-
-	protected double decouvert ;
-	
-	public CompteCourant(double decouvert, String code, double soldeInitial) {
-		super(code, soldeInitial);
-		this.decouvert = decouvert ;
-	}
-	
-
-	
-	@Override
-	public boolean retirer(double montant) {
-		if (montant < 0) return false ;
-		if(this.solde - montant >= -this.decouvert) {
-			solde -= montant ;
-		}
-		return false ;
-	}
-
-	@Override
-	public double calculerInteret() {
-		return 0 ;
-	}
-	
-	@Override 
-	public void afficherDetails() {
+    private BigDecimal decouvert;
+    
+    public CompteCourant(String code, BigDecimal soldeInitial, BigDecimal decouvert) {
+        super(code, soldeInitial);
+        this.decouvert = decouvert;
+    }
+    
+    @Override
+    public boolean retirer(BigDecimal montant) {
+        if (montant.compareTo(BigDecimal.ZERO) <= 0) return false;
+        if (solde.subtract(montant).compareTo(decouvert.negate()) >= 0) {
+            solde = solde.subtract(montant);
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public BigDecimal calculerInteret() {
+        return BigDecimal.ZERO;
+    }
+    
+    @Override
+    public void afficherDetails() {
         System.out.println("=== Détails du Compte Courant ===");
         System.out.println("Code: " + code);
-        System.out.println("Solde: " + solde + "dh");
-        System.out.println("Découvert autorisé: " + decouvert + "dh");
-        
+        System.out.println("Solde: " + solde + "€");
+        System.out.println("Découvert autorisé: " + decouvert + "€");
+        System.out.println("Nombre d'opérations: " + listeOperations.size());
     }
-	
-	public double getDecouvert() {
-		return this.decouvert;
-	}
+    
+    public BigDecimal getDecouvert() { return decouvert; }
 }

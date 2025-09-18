@@ -1,43 +1,30 @@
 package com.easybank.model;
 
-import java.util.UUID;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
-public class Operation {
-
-	protected UUID numero ;
-	protected LocalDateTime date ;
-	protected double montant ;
-	
-	public Operation(
-			 UUID numero ,
-			 LocalDateTime date ,
-			 double montant 
-	) {
-		this.numero = numero ;
-		this.date = date ;
-		this.montant = montant ;
-	}
-	
-//	Getters
-	public UUID getNumero() {
-		return this.numero;
-	}
-	public LocalDateTime getDate() {
-		return this.date ;
-	}
-	public double montant() {
-		return this.montant ;
-	}
-	
-	@Override 
-	public String toString() {
-        return String.format("Op %s: %.2f€ le %s", 
-            numero.toString().substring(0, 8), 
-            montant, 
-            date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+public abstract class Operation {
+    protected UUID numero;
+    protected LocalDate date;
+    protected BigDecimal montant;
+    
+    public Operation(BigDecimal montant) {
+        this.numero = UUID.randomUUID();
+        this.date = LocalDate.now();
+        this.montant = montant;
     }
-	
-	
+    
+    public UUID getNumero() { return numero; }
+    public LocalDate getDate() { return date; }
+    public BigDecimal getMontant() { return montant; }
+    
+    @Override
+    public String toString() {
+        return String.format("Op %s: %s€ le %s", 
+            numero.toString().substring(0, 8), 
+            montant.toString(), 
+            date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    }
 }
