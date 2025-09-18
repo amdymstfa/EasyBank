@@ -9,9 +9,7 @@ public class CompteCourant extends Compte {
 		this.decouvert = decouvert ;
 	}
 	
-//	public abstract double retirer(double montant);
-//	public abstract double calculerInteret();
-//	public abstract void afficherDetails();
+
 	
 	@Override
 	public boolean retirer(double montant) {
