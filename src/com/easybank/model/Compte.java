@@ -22,7 +22,7 @@ public abstract class Compte {
 		return this.solde ;
 	}
 	
-	public abstract double retirer(double montant);
+	public abstract boolean retirer(double montant);
 	public abstract double calculerInteret();
 	public abstract void afficherDetails();
 	

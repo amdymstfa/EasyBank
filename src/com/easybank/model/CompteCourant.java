@@ -2,10 +2,41 @@ package com.easybank.model;
 
 public class CompteCourant extends Compte {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		eclipse est comme 
-
+	protected double decouvert ;
+	
+	public CompteCourant(double decouvert, String code, double soldeInitial) {
+		super(code, soldeInitial);
+		this.decouvert = decouvert ;
+	}
+	
+//	public abstract double retirer(double montant);
+//	public abstract double calculerInteret();
+//	public abstract void afficherDetails();
+	
+	@Override
+	public boolean retirer(double montant) {
+		if (montant < 0) return false ;
+		if(this.solde - montant >= -this.decouvert) {
+			solde -= montant ;
+		}
+		return false ;
 	}
 
+	@Override
+	public double calculerInteret() {
+		return 0 ;
+	}
+	
+	@Override 
+	public void afficherDetails() {
+        System.out.println("=== Détails du Compte Courant ===");
+        System.out.println("Code: " + code);
+        System.out.println("Solde: " + solde + "dh");
+        System.out.println("Découvert autorisé: " + decouvert + "dh");
+        
+    }
+	
+	public double getDecouvert() {
+		return this.decouvert;
+	}
 }
