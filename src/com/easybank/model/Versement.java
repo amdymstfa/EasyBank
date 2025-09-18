@@ -1,10 +1,19 @@
 package com.easybank.model;
 
+import java.math.BigDecimal;
+
 public class Versement extends Operation {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+    private String source;
+    
+    public Versement(BigDecimal montant, String source) {
+        super(montant);
+        this.source = source;
+    }
+    
+    public String getSource() { return source; }
+    
+    @Override
+    public String toString() {
+        return super.toString() + " - VERSEMENT depuis: " + source;
+    }
 }
