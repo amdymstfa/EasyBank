@@ -55,6 +55,49 @@ public class Menu {
         } while (choix != 0);
     }
 
+	private void effectuerRetrait() {
+        System.out.println("\n=== Retrait ===");
+        try {
+            System.out.print("Code compte: ");
+            String code = scanner.nextLine().trim().toUpperCase();
+            
+            if (!banqueService.validerCodeCompte(code)) {
+                System.out.println("Erreur: Format de code invalide !");
+                return;
+            }
+            
+            System.out.print("Montant: ");
+            double montantInput = scanner.nextDouble();
+            scanner.nextLine();
+            BigDecimal montant = BigDecimal.valueOf(montantInput);
+            
+            if (!banqueService.validerMontant(montant)) {
+                System.out.println("Erreur: Le montant doit être positif !");
+                return;
+            }
+            
+            System.out.print("Destination: ");
+            String destination = scanner.nextLine().trim();
+            
+            if (destination.isEmpty()) {
+                System.out.println("Erreur: La destination ne peut pas être vide !");
+                return;
+            }
+            
+            if (banqueService.retirer(code, montant, destination)) {
+                System.out.println("Retrait effectué avec succès !");
+            } else {
+                System.out.println("Erreur: Solde insuffisant ou compte introuvable !");
+            }
+            
+        } catch (InputMismatchException e) {
+            System.out.println("Erreur: Veuillez saisir un montant valide !");
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Erreur inattendue: " + e.getMessage());
+        }
+    }
+
 	private void effectuerVersement() {
         System.out.println("\n=== Versement ===");
         try {
