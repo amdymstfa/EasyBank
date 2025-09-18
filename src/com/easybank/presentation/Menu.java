@@ -55,6 +55,47 @@ public class Menu {
         } while (choix != 0);
     }
 
+	private void effectuerVirement() {
+        System.out.println("\n=== Virement ===");
+        try {
+            System.out.print("Compte source: ");
+            String source = scanner.nextLine().trim().toUpperCase();
+            System.out.print("Compte destination: ");
+            String destination = scanner.nextLine().trim().toUpperCase();
+            
+            if (!banqueService.validerCodeCompte(source) || !banqueService.validerCodeCompte(destination)) {
+                System.out.println("Erreur: Format de code invalide !");
+                return;
+            }
+            
+            if (source.equals(destination)) {
+                System.out.println("Erreur: Les comptes source et destination doivent être différents !");
+                return;
+            }
+            
+            System.out.print("Montant: ");
+            double montantInput = scanner.nextDouble();
+            BigDecimal montant = BigDecimal.valueOf(montantInput);
+            
+            if (!banqueService.validerMontant(montant)) {
+                System.out.println("Erreur: Le montant doit être positif !");
+                return;
+            }
+            
+            if (banqueService.virer(source, destination, montant)) {
+                System.out.println("Virement effectué avec succès !");
+            } else {
+                System.out.println("Erreur lors du virement !");
+            }
+            
+        } catch (InputMismatchException e) {
+            System.out.println("Erreur: Veuillez saisir un montant valide !");
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Erreur inattendue: " + e.getMessage());
+        }
+    }
+
 	private void effectuerRetrait() {
         System.out.println("\n=== Retrait ===");
         try {
