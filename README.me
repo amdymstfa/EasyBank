@@ -1,0 +1,258 @@
+# 🏦 EasyBank - Système de Gestion Bancaire
+
+## 📋 Table des Matières
+- [Présentation du Projet](#présentation-du-projet)
+- [Architecture du Projet](#architecture-du-projet)
+- [Fonctionnalités](#fonctionnalités)
+- [Spécifications Techniques](#spécifications-techniques)
+- [Structure des Packages](#structure-des-packages)
+- [Installation et Utilisation](#installation-et-utilisation)
+- [Guide d'Utilisation](#guide-dutilisation)
+- [Captures d'Écran](#captures-décran)
+- [Diagramme UML](#diagramme-uml)
+
+## 🎯 Présentation du Projet
+
+**EasyBank** est une application Java de gestion bancaire développée avec une architecture en couches respectant les principes de la programmation orientée objet. Le système permet la gestion complète des comptes bancaires avec des fonctionnalités de versement, retrait, virement et consultation.
+
+### Objectifs du Projet
+- Implémenter un système bancaire robuste et sécurisé
+- Respecter les principes SOLID et les bonnes pratiques Java
+- Utiliser les APIs modernes de Java (Time API, Stream API, Optional)
+- Assurer une validation complète des données utilisateur
+- Maintenir une architecture modulaire et extensible
+
+## 🏗️ Architecture du Projet
+
+Le projet suit une **architecture en couches (Layered Architecture)** avec séparation claire des responsabilités :
+
+\`\`\`
+┌─────────────────────────────────────┐
+│         PRESENTATION LAYER          │
+│    (Menu, ApplicationPrincipale)    │
+├─────────────────────────────────────┤
+│          BUSINESS LAYER             │
+│  (BanqueService, CompteService,     │
+│       ClientService)                │
+├─────────────────────────────────────┤
+│           DATA LAYER                │
+│        (DataManager)                │
+├─────────────────────────────────────┤
+│           MODEL LAYER               │
+│  (Compte, Operation, Versement,     │
+│   Retrait, CompteCourant,           │
+│   CompteEpargne)                    │
+└─────────────────────────────────────┘
+\`\`\`
+
+## ⚡ Fonctionnalités
+
+### Fonctionnalités Principales
+- ✅ **Création de comptes** : Compte Courant et Compte Épargne
+- ✅ **Opérations bancaires** : Versement, Retrait, Virement
+- ✅ **Consultation** : Solde et historique des opérations
+- ✅ **Filtrage** : Recherche de comptes par solde minimum
+- ✅ **Statistiques** : Analyse des données bancaires
+
+### Règles Métier
+- **Compte Courant** : Autorise un découvert paramétrable
+- **Compte Épargne** : Pas de découvert, calcul d'intérêts selon le taux
+- **Virement** : Transaction atomique entre deux comptes
+- **Traçabilité** : Chaque opération est enregistrée avec UUID et date
+
+## 🔧 Spécifications Techniques
+
+### Technologies Utilisées
+- **Java 8+** avec support des fonctionnalités modernes
+- **Collections Framework** : HashMap pour recherche rapide, ArrayList pour stockage
+- **Java Time API** : LocalDate pour gestion des dates
+- **Stream API** : Filtrage et traitement des données
+- **Optional** : Gestion sécurisée des valeurs nulles
+- **BigDecimal** : Précision monétaire pour les calculs financiers
+
+### Fonctionnalités Techniques Implémentées
+- ✅ **HashMap/ArrayList** : Stockage et recherche optimisés
+- ✅ **Java Time API** : Gestion moderne des dates
+- ✅ **Gestion d'exceptions** : Try-catch complet avec messages d'erreur
+- ✅ **Persistance mémoire** : Données conservées jusqu'à fermeture
+- ✅ **Validations obligatoires** : 
+  - Montants positifs
+  - Format code compte (CPT-XXXXX)
+  - Validation des entrées utilisateur
+- ✅ **Stream API** : Filtrage et affichage optimisés
+- ✅ **Expressions Lambda** : Code fonctionnel moderne
+- ✅ **Optional** : Gestion sécurisée des valeurs nulles
+
+## 📁 Structure des Packages
+
+\`\`\`
+src/
+├── com.easybank.model/
+│   ├── Compte.java                 # Classe abstraite de base
+│   ├── CompteCourant.java         # Compte avec découvert
+│   ├── CompteEpargne.java         # Compte avec intérêts
+│   ├── Operation.java             # Classe abstraite des opérations
+│   ├── Versement.java             # Opération de dépôt
+│   └── Retrait.java               # Opération de retrait
+├── com.easybank.data/
+│   └── DataManager.java           # Gestionnaire de données (Singleton)
+├── com.easybank.business/
+│   ├── BanqueService.java         # Services bancaires principaux
+│   ├── CompteService.java         # Gestion des comptes
+│   └── ClientService.java         # Services client et statistiques
+└── com.easybank.presentation/
+    ├── Menu.java                  # Interface utilisateur console
+    └── ApplicationPrincipale.java # Point d'entrée de l'application
+\`\`\`
+
+## 🚀 Installation et Utilisation
+
+### Prérequis
+- **Java JDK 8+** installé
+- **Eclipse IDE** ou tout autre IDE Java
+- **Git** pour le clonage du projet
+
+### Installation
+1. **Cloner le projet**
+   git clone https://github.com/amdymstfa/EasyBank.git
+
+2. **Importer dans Eclipse**
+   - File → Import → Existing Projects into Workspace
+   - Sélectionner le dossier du projet
+   - Cliquer sur "Finish"
+
+3. **Compiler et exécuter**
+   - Clic droit sur `ApplicationPrincipale.java`
+   - Run As → Java Application
+
+### Structure Eclipse
+\`\`\`
+EasyBank [EasyBank main 13]
+├── src
+│   ├── com.easybank.business
+│   │   ├── BanqueService.java
+│   │   ├── ClientService.java
+│   │   └── CompteService.java
+│   ├── com.easybank.data
+│   │   └── DataManager.java
+│   ├── com.easybank.model
+│   │   ├── Compte.java
+│   │   ├── CompteCourant.java
+│   │   ├── CompteEpargne.java
+│   │   ├── Operation.java
+│   │   ├── Retrait.java
+│   │   └── Versement.java
+│   └── com.easybank.presentation
+│       ├── ApplicationPrincipale.java
+│       └── Menu.java
+├── JRE System Library [8.0.462-amzn]
+└── README.md
+\`\`\`
+
+## 📖 Guide d'Utilisation
+
+### Menu Principal
+\`\`\`
+=== EASYBANK ===
+1. Créer un compte
+2. Effectuer un versement
+3. Effectuer un retrait
+4. Effectuer un virement
+5. Consulter le solde
+6. Consulter les opérations
+7. Filtrer comptes par solde
+8. Statistiques des comptes
+0. Quitter
+\`\`\`
+
+### Exemples d'Utilisation
+
+#### 1. Création d'un Compte Courant
+\`\`\`
+=== Création de compte ===
+1. Compte Courant
+2. Compte Épargne
+Type: 1
+Solde initial: 1000
+Découvert autorisé: 500
+Compte créé: CPT-00001
+\`\`\`
+
+#### 2. Effectuer un Versement
+\`\`\`
+=== Versement ===
+Code compte: CPT-00001
+Montant: 250.50
+Source: Salaire
+Versement effectué avec succès !
+\`\`\`
+
+#### 3. Consultation des Opérations
+\`\`\`
+=== Opérations du compte CPT-00001 ===
+Op 12345678: 250.50€ le 18/09/2025 - VERSEMENT depuis: Salaire
+Op 87654321: 1000.00€ le 18/09/2025 - VERSEMENT depuis: Dépôt initial
+\`\`\`
+
+## 📸 Captures d'Écran
+
+
+- [Capture 1](src/com/easybank/assets/image.png)
+- [Capture 2](src/com/easybank/assets/image%20copy%202.png)
+- [Capture 3](src/com/easybank/assets/image%20copy%203.png)
+- [Capture 4](src/com/easybank/assets/image%20copy%204.png)
+- [Capture 5](src/com/easybank/assets/image%20copy%205.png)
+
+## 🎨 Diagramme UML
+
+### Diagramme de Classes
+[Voir le diagramme UML des classes](https://drive.google.com/file/d/1iYTLg6-aTgsJ6vXFLHbsEUCivSWEhHYs/view?usp=drive_link)
+![Diagramme UML](assets/uml.png)
+
+Le diagramme montre :
+- **Classe abstraite Compte** avec ses attributs et méthodes
+- **Héritage** : CompteCourant et CompteEpargne
+- **Classe abstraite Operation** avec Versement et Retrait
+- **Relations** entre les classes avec cardinalités
+
+### Diagramme de Packages
+\`\`\`
+┌─────────────────────┐    ┌─────────────────────┐
+│    presentation     │───▶│      business       │
+└─────────────────────┘    └─────────────────────┘
+                                      │
+                                      ▼
+┌─────────────────────┐    ┌─────────────────────┐
+│       model         │◀───│        data         │
+└─────────────────────┘    └─────────────────────┘
+\`\`\`
+
+
+## 🔒 Sécurité et Bonnes Pratiques
+
+### Validations Implémentées
+- **Format des codes** : Regex `^CPT-\\d{5}$`
+- **Montants positifs** : Validation avec BigDecimal
+- **Entrées utilisateur** : Contrôle de nullité et format
+- **Exceptions** : Gestion complète avec try-catch
+
+### Bonnes Pratiques Respectées
+- **Singleton Pattern** : DataManager
+- **Encapsulation** : Attributs protégés avec getters
+- **Polymorphisme** : Classes abstraites et héritage
+- **Immutabilité** : UUID et LocalDate
+- **Séparation des responsabilités** : Architecture en couches
+
+## 📝 Notes de Développement
+
+### Choix Techniques Justifiés
+- **BigDecimal** : Précision monétaire (évite les erreurs de virgule flottante)
+- **LocalDate** : API moderne pour les dates (thread-safe)
+- **HashMap** : Recherche O(1) pour les comptes
+- **Optional** : Évite les NullPointerException
+- **Stream API** : Code fonctionnel et lisible
+
+
+---
+
+
