@@ -49,7 +49,8 @@ public class CompteService {
                     compteDestination.get().verser(montant);
                     
                     // Ajouter les opérations pour traçabilité
-                    compteSource.get().ajouterOperation(new Retrait(montant, "Virement vers " + codeDestination));
+//                    compteSource.get().ajouterOperation(new Retrait(montant, "Virement vers " + codeDestination));
+                    compteSource.get().ajouterOperation(new Retrait("Virement vers " + codeDestination, montant));
                     compteDestination.get().ajouterOperation(new Versement(montant, "Virement depuis " + codeSource));
                     
                     return true;
