@@ -62,4 +62,10 @@ public class CompteService {
             return false;
         }
     }
+//    Objectif: Créez une méthode trouverSoldeMaximum() qui retourne avec Stream le solde le plus élevé
+    public Optional<BigDecimal> trouverSoldeMaximum() {
+        return dataManager.obtenirTousLesComptes().stream()
+                .map(Compte::getSolde)
+                .max(BigDecimal::compareTo);
+    }
 }

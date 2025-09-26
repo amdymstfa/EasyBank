@@ -25,7 +25,7 @@ public class Menu {
             System.out.println("5. Consulter le solde");
             System.out.println("6. Consulter les opérations");
             System.out.println("7. Filtrer comptes par solde");
-            System.out.println("8. Statistiques des comptes");
+            System.out.println("8. Statistiques des comptes");    
             System.out.println("0. Quitter");
             System.out.print("Choix: ");
             

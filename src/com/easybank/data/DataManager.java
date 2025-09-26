@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public class DataManager {
-    private static DataManager instance;
+    private static DataManager instance; // simulation de base de donnee
     private Map<String, Compte> comptes;
     
     private DataManager() {
